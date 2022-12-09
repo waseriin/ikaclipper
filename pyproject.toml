@@ -1,0 +1,24 @@
+[build-system]
+requires = ["setuptools", "setuptools_scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ikaclipper"
+version = "0.1.0"
+description = "split a media file into clips using audio markers"
+readme = "README.md"
+license = {file = "LICENSE"}
+# dynamic = ["dependencies", "version"]
+dynamic = ["dependencies"]
+
+[tool.setuptools]
+zip-safe = false
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[project.scripts]
+ikaclipper = "ikaclipper.cli:main"
