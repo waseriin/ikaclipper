@@ -17,6 +17,9 @@ zip-safe = false
 [tool.setuptools.packages.find]
 where = ["src"]
 
+[tool.setuptools.package-data]
+ikaclipper = ["*.ini"]
+
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
 

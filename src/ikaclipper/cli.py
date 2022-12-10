@@ -79,12 +79,23 @@ def _process_media(mediapath:str, config, d:dict):
 
 def _process_json(jsonpath:str, config, d:dict):
     d_matches = pf.load_matches_json(jsonpath)
+
     if d['tiles']:
-        print('tiles will be generated')
-        pv.generate_capture_tiles(d_matches, config, keywords=d['tk'], prefix=d['prefix'], index_reference=d['tr'])
+        print('Tiles will be generated.')
+        n = pv.generate_capture_tiles(d_matches, config, keywords=d['tk'], prefix=d['prefix'], index_reference=d['tr'])
+        if n > 0:
+            print(f"Generated {n} tiles.\n")
+        else:
+            print("Skip generating tiles.\n")
+
     if d['split']:
-        print('files will be split')
-        pv.split_clips(d_matches, config, d['sk'], prefix=d['prefix'], separate_audio=d['sa'], track=d['track'])
+        print('Split clips will be generated.')
+        n = pv.split_clips(d_matches, config, d['sk'], prefix=d['prefix'], separate_audio=d['sa'], track=d['track'])
+        if n > 0:
+            print(f"Generated {n} clips.\n")
+        else:
+            print("Skip generating clips.\n")
+
     return None
 
 
