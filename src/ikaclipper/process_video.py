@@ -19,13 +19,13 @@ def split_clips(
     if keywords is None:
         keywords = pf.get_option_list('split_keywords', 'video_params', config)
 
-        if (keywords is None) or (len(keywords) == 0):
-            print("No keywords set for split_clips()")
-            return -1
-
     target_markers = set()
     for keyword in keywords:
         target_markers |= set([k for k in list(d_matches.keys()) if keyword in k])
+
+    if not len(target_markers):
+        print("No keywords set for split_clips() or din't match any marker.")
+        return -1
 
     if export_dir is None:
         export_rootdir = pf.get_option_str('export_rootdir', 'path', config)
@@ -111,13 +111,13 @@ def generate_capture_tiles(
     if keywords is None:
         keywords = pf.get_option_list('tiles_keywords', 'video_params', config)
 
-        if (keywords is None) or (len(keywords) == 0):
-            print("No keywords set for generate_capture_tiles()")
-            return 1
-
     target_markers = set()
     for keyword in keywords:
         target_markers |= set([k for k in list(d_matches.keys()) if keyword in k])
+
+    if not len(target_markers):
+        print("No keywords set for generate_capture_tiles() or din't match any marker.")
+        return -1
 
     if export_dir is None:
         export_rootdir = pf.get_option_str('export_rootdir', 'path', config)
