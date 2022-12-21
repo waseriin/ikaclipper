@@ -1,4 +1,5 @@
 import configparser
+import ctypes
 import json
 import mimetypes
 import os
@@ -216,6 +217,12 @@ def set_file(filepath:str=None, config:configparser=None):
     """
     if (filepath is None) or not (os.path.isfile(filepath)):
         source_root_dir = get_option_str('source_rootdir', item='path', config=config)
+
+        try:
+            ctypes.windll.shcore.SetProcessDpiAwareness(True)
+        except:
+            pass
+
         root = Tk().withdraw()
         print("Waiting for file selection ..")
         filepath = filedialog.askopenfilename(initialdir=source_root_dir)
